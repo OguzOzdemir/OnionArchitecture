@@ -17,5 +17,5 @@ There are several advantages of the Onion Architecture, as listed below.
 
 
 <p align="center">
-  <img width="460" height="300" src="https://i.ibb.co/DKRp0bL/Onion-Architecture.png">
+  <img src="https://i.ibb.co/DKRp0bL/Onion-Architecture.png">
 </p>

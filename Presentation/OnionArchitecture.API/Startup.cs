@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OnionArchitecture.Application.Validators.Products;
+using OnionArchitecture.Infrastructure.Filters;
 using OnionArchitecture.Persistence;
 using System;
 using System.Collections.Generic;
@@ -29,7 +32,12 @@ namespace OnionArchitecture.API
         {
             services.AddPersistanceServices();
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+                .AddFluentValidation(configuraiton => configuraiton.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
+                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnionArchitecture.API", Version = "v1" });

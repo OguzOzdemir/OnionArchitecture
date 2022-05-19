@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OnionArchitecture.Application.Validators.Products;
+using OnionArchitecture.Infrastructure;
 using OnionArchitecture.Infrastructure.Filters;
 using OnionArchitecture.Persistence;
 using System;
@@ -31,6 +32,7 @@ namespace OnionArchitecture.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPersistanceServices();
+            services.AddInfrastructureServices();
 
             services.AddControllers(options => options.Filters.Add<ValidationFilter>())
                 .AddFluentValidation(configuraiton => configuraiton.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
